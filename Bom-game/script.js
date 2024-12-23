@@ -1,40 +1,35 @@
 let msg = "BOM Oyunu";
 console.log(msg);
 let sayi = 0;
-let kacaKadar = parseInt(prompt("Kaça kadar"))
+let kacaKadar = parseInt(prompt("Kaça kadar"));
 console.log(`Belirlenen sınır ${kacaKadar}`);
 let bomSayisi = parseInt(prompt("Bom sayısı belirle"));
 console.log(`Belirlenen bom sayısı ${bomSayisi}`);
 console.log("Oyun Başlıyor");
 
-while (sayi <= kacaKadar){
+while (sayi < kacaKadar) {
+    // Computer's turn
     sayi++;
-    if (sayi + 1 < kacaKadar + 1){
-        console.log(`Bilgisayar : ${sayi}`);
-        let readLine = prompt("");
-        console.log(`Kullanıcı : ${readLine}`);
-
-        if ((sayi + 1) % bomSayisi == 0){
-
-            if (readLine != "BOM") { 
-                console.log(`Üzgünüm kaybettiniz. Girdiğiniz sayı ${bomSayisi} sayısına bölünebilmektedir.`) 
-                break;
-            } else { 
-                sayi = sayi + 1; 
-            }
-            
-        } else {
-
-            sayi = sayi + 1;
-            if ((sayi + 1) % bomSayisi == 0){
-                console.log("Bilgisayar: BOM");
-                sayi = sayi + 1;
-                let readLine = prompt("");
-                console.log(`Kullanıcı : ${readLine}`);
-                sayi = sayi + 1;
-            } 
+    if (sayi % bomSayisi === 0) {
+        console.log("Bilgisayar: BOM");
+    } else {
+        console.log(`Bilgisayar: ${sayi}`);
     }
- }
+    
+    // Player's turn
+    if (sayi < kacaKadar) {
+        sayi++;
+        const readLine = prompt("");
+        const expectedAnswer = sayi % bomSayisi === 0 ? "BOM" : sayi.toString();
+        
+        if (readLine !== expectedAnswer) {
+            console.log(`Üzgünüm kaybettiniz. ${sayi % bomSayisi === 0 ? 
+                `${sayi} sayısı ${bomSayisi} sayısına bölünebilmektedir, BOM demeliydiniz.` : 
+                `${sayi} sayısını girmeliydiniz.`}`);
+            break;
+        }
+        console.log(`Kullanıcı: ${readLine}`);
+    }
 }
 
 
